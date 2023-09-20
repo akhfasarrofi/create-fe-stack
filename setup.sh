@@ -11,6 +11,8 @@ framework_choice=""
 framework_chosen=false
 state_management_choice=""
 component_library_choice=""
+install_state_management=false
+install_component_library=false
 
 # Fungsi untuk menangani sinyal SIGINT (Ctrl+C)
 sigint_handler() {
@@ -37,6 +39,7 @@ choose_framework() {
         cd "$project_name"     # Pindah ke direktori proyek yang baru dibuat
         npx create-next-app@latest .  # Menggunakan titik (.) untuk menginstall di direktori saat ini
         framework_chosen=true  # Menandakan bahwa framework telah dipilih
+        npm install axios react-query
         break
         ;;
       2)
@@ -55,6 +58,7 @@ choose_framework() {
         cd "$project_name"     # Pindah ke direktori proyek yang baru dibuat
         npm create vue@latest .   # Menggunakan titik (.) untuk menginstall di direktori saat ini
         framework_chosen=true  # Menandakan bahwa framework telah dipilih
+        npm install axios vue-query
         break
         ;;
       *)
@@ -78,22 +82,22 @@ choose_state_management_nextjs() {
       case $state_management_choice in
         1)
           # Menggunakan Zustand
-          npm install zustand
+          install_state_management=true
           break
           ;;
         2)
           # Menggunakan Redux
-          npm install redux react-redux
+          install_state_management=true
           break
           ;;
         3)
           # Menggunakan Jotai
-          npm install jotai
+          install_state_management=true
           break
           ;;
         4)
           # Menggunakan Recoil
-          npm install recoil
+          install_state_management=true
           break
           ;;
         *)
@@ -119,17 +123,17 @@ choose_state_management_vuejs() {
       case $state_management_choice in
         1)
           # Menggunakan Vuex
-          npm install vuex
+          install_state_management=true
           break
           ;;
         2)
           # Menggunakan Pinia
-          npm install pinia
+          install_state_management=true
           break
           ;;
         3)
           # Menggunakan Mobx
-          npm install mobx
+          install_state_management=true
           break
           ;;
         *)
@@ -139,6 +143,48 @@ choose_state_management_vuejs() {
     done
   else
     echo "No state management options available for this framework."
+  fi
+}
+
+# Fungsi untuk memilih component library hanya jika framework adalah Next.js
+choose_component_library_nextjs() {
+  if [ "$framework_choice" == "1" ]; then
+    while true; do
+      echo "Choose Component Library for Next.js:"
+      echo "1. $(color_text 'Material UI' '31')"
+      echo "2. $(color_text 'Ant Design' '32')"
+      echo "3. $(color_text 'Chakra UI' '33')"
+      echo "4. $(color_text 'Next UI' '34')"
+      read -p "Enter option (1/2): " component_library_choice
+
+      case $component_library_choice in
+        1)
+          # Menggunakan Material UI
+          install_component_library=true
+          break
+          ;;
+        2)
+          # Menggunakan Antd
+          install_component_library=true
+          break
+          ;;
+        3)
+          # Menggunakan Chakra UI
+          install_component_library=true
+          break
+          ;;
+        4)
+          # Menggunakan Next UI
+          install_component_library=true
+          break
+          ;;
+        *)
+          echo "Invalid selection ❌. Please choose 1/2"
+          ;;
+      esac
+    done
+  else
+    echo "No component library options available for this framework."
   fi
 }
 
@@ -157,73 +203,31 @@ choose_component_library_vuejs() {
       case $component_library_choice in
         1)
           # Menggunakan Vuetify
-          npm install vuetify
+          install_component_library=true
           break
           ;;
         2)
           # Menggunakan Bootstrap Vue
-          npm install bootstrap-vue
+          install_component_library=true
           break
           ;;
         3)
           # Menggunakan Element Plus
-          npm install element-plus
+          install_component_library=true
           break
           ;;
         4)
           # Menggunakan Ant Design
-          npm install ant-design-vue
+          install_component_library=true
           break
           ;;
         5)
           # Menggunakan Chakra UI
-          npm install @chakra-ui/react @emotion/react @emotion/styled framer-motion
+          install_component_library=true
           break
           ;;
         *)
           echo "Invalid selection ❌. Please choose 1/2/3/4/5"
-          ;;
-      esac
-    done
-  else
-    echo "No component library options available for this framework."
-  fi
-}
-
-# Fungsi untuk memilih component library hanya jika framework adalah Next Js
-choose_component_library_nextjs() {
-  if [ "$framework_choice" == "1" ]; then
-    while true; do
-      echo "Choose Component Library for Next Js:"
-      echo "1. $(color_text 'Material-UI' '34')"
-      echo "2. $(color_text 'Ant-Design' '31')"
-      echo "3. $(color_text 'Chakra-UI' '32')"
-      echo "4. $(color_text 'Next-UI' '33')"
-      read -p "Enter option (1/2/3/4): " component_library_choice
-
-      case $component_library_choice in
-        1)
-          # Menggunakan Material-UI
-          npm install @mui/material @mui/icons-material
-          break
-          ;;
-        2)
-          # Menggunakan Ant-Design
-          npm install ant-design
-          break
-          ;;
-        3)
-          # Menggunakan Chakra-UI
-          npm install @chakra-ui/react @emotion/react @emotion/styled framer-motion
-          break
-          ;;
-        4)
-          # Menggunakan Next-UI
-          npm install next-ui
-          break
-          ;;
-        *)
-          echo "Invalid selection ❌. Please choose 1/2/3/4"
           ;;
       esac
     done
@@ -242,9 +246,72 @@ elif [ "$framework_choice" == "3" ]; then
   choose_state_management_vuejs
 fi
 
-# Memilih komponen library
-if [ "$framework_choice" == "1" ] || [ "$framework_choice" == "3" ]; then
+# Memilih komponen library (jika diperlukan)
+if [ "$framework_choice" == "1" ]; then
+  choose_component_library_nextjs
+elif [ "$framework_choice" == "3" ]; then
   choose_component_library_vuejs
-elif [ "$framework_choice" == "2" ]; then
-  echo "No state management or component library options available for Vite."
+fi
+
+# Meminta konfirmasi pengguna untuk instalasi
+if [ "$install_state_management" == "true" ] || [ "$install_component_library" == "true" ]; then
+  read -p "Do you want to install selected state management and component library? (y/n): " install_confirmation
+  if [ "$install_confirmation" == "y" ]; then
+    if [ "$install_state_management" == "true" ]; then
+      # Install state management
+      echo "Installing selected state management..."
+      if [ "$framework_choice" == "1" ]; then
+        # Install state management untuk Next Js (contoh: install Zustand)
+        npm install zustand
+      elif [ "$framework_choice" == "3" ]; then
+        # Install state management untuk Vue.js (contoh: install Vuex)
+        npm install vuex
+      fi
+    fi
+
+    if [ "$install_component_library" == "true" ]; then
+      # Install component library
+      echo "Installing selected component library..."
+      if [ "$framework_choice" == "1" ]; then
+        # Install component library untuk Vue.js
+        case $component_library_choice in
+          1)
+            npm install @mui/material @mui/icons-material
+            ;;
+          2)
+            npm install ant-design
+            ;;
+          3)
+            npm install @chakra-ui/react @emotion/react @emotion/styled framer-motion
+            ;;
+          4)
+            npm install @nextui-org/react framer-motion
+            ;;
+        esac
+      elif [ "$framework_choice" == "3" ]; then
+        # Install component library untuk Next.js
+        case $component_library_choice in
+          1)
+            npm install vuetify
+            ;;
+          2)
+            npm install bootstrap-vue
+            ;;
+          3)
+            npm install element-plus
+            ;;
+          4)
+            npm install ant-design-vue
+            ;;
+          5)
+            npm install chakra-ui-vue
+            ;;
+        esac
+      fi
+    fi
+
+    echo "Installation completed."
+  else
+    echo "Installation aborted."
+  fi
 fi
