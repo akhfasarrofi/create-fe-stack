@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Front-End Setup Script for Speed
-# (c) Sept 2023 akhfas
+# (c) Sept 2023, Akhfas zakaria_akhfas@outlook.co.id
 
 # Fungsi untuk memeriksa apakah Node.js sudah terinstal
 check_nodejs() {
@@ -16,12 +16,6 @@ check_nodejs() {
 # Memanggil fungsi untuk memeriksa Node.js
 check_nodejs
 
-# Function untuk menampilkan teks dengan warna
-color_text() {
-  local text="$1"
-  local color_code="$2"
-  echo "\033[${color_code}m${text}\033[0m"
-}
 
 framework_choice=""
 framework_chosen=false
@@ -42,9 +36,9 @@ trap sigint_handler SIGINT
 choose_framework() {
   while true; do
     echo "Choose framework:"
-    echo "1. $(color_text 'Next Js' '32')"
-    echo "2. $(color_text 'Vite' '34')"
-    echo "3. $(color_text 'Vue' '36')"  # Menambahkan pilihan Vue.js
+    echo "1. Next Js"
+    echo "2. Vite"
+    echo "3. Vue"  # Menambahkan pilihas
     read -p "Enter option (1/2/3): " framework_choice
 
     case $framework_choice in
@@ -89,10 +83,10 @@ choose_state_management_nextjs() {
   if [ "$framework_choice" == "1" ]; then
     while true; do
       echo "Choose State Management for Next Js:"
-      echo "1. $(color_text 'Zustand' '34')"
-      echo "2. $(color_text 'Redux' '31')"
-      echo "3. $(color_text 'Jotai' '32')"
-      echo "4. $(color_text 'Recoil' '33')"
+      echo "1. Zustand"
+      echo "2. Redux"
+      echo "3. Jotai"
+      echo "4. Recoil"
       read -p "Enter option (1/2/3/4): " state_management_choice
 
       case $state_management_choice in
@@ -131,9 +125,9 @@ choose_state_management_vuejs() {
   if [ "$framework_choice" == "3" ]; then
     while true; do
       echo "Choose State Management for Vue.js:"
-      echo "1. $(color_text 'Vuex' '34')"
-      echo "2. $(color_text 'Pinia' '31')"
-      echo "3. $(color_text 'Mobx' '32')"
+      echo "1. Vuex"
+      echo "2. Pinia"
+      echo "3. Mobx"
       read -p "Enter option (1/2/3): " state_management_choice
 
       case $state_management_choice in
@@ -167,10 +161,10 @@ choose_component_library_nextjs() {
   if [ "$framework_choice" == "1" ]; then
     while true; do
       echo "Choose Component Library for Next.js:"
-      echo "1. $(color_text 'Material UI' '31')"
-      echo "2. $(color_text 'Ant Design' '32')"
-      echo "3. $(color_text 'Chakra UI' '33')"
-      echo "4. $(color_text 'Next UI' '34')"
+      echo "1. Material UI"
+      echo "2. Ant Design"
+      echo "3. Chakra UI"
+      echo "4. Next UI"
       read -p "Enter option (1/2): " component_library_choice
 
       case $component_library_choice in
@@ -209,11 +203,11 @@ choose_component_library_vuejs() {
   if [ "$framework_choice" == "3" ]; then
     while true; do
       echo "Choose Component Library for Vue.js:"
-      echo "1. $(color_text 'Vuetify' '34')"
-      echo "2. $(color_text 'Bootstrap Vue' '31')"
-      echo "3. $(color_text 'Element Plus' '32')"
-      echo "4. $(color_text 'Ant Design' '33')"
-      echo "5. $(color_text 'Chakra UI' '35')"
+      echo "1. Vuetify"
+      echo "2. Bootstrap Vue"
+      echo "3. Element Plus"
+      echo "4. Ant Design"
+      echo "5. Chakra UI"
       read -p "Enter option (1/2/3/4/5): " component_library_choice
 
       case $component_library_choice in
