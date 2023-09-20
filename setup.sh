@@ -1,5 +1,21 @@
 #!/bin/bash
 
+# Front-End Setup Script for Speed
+# (c) Sept 2023 akhfas
+
+# Fungsi untuk memeriksa apakah Node.js sudah terinstal
+check_nodejs() {
+  if command -v node >/dev/null 2>&1; then
+    echo "Node.js is already installed."
+  else
+    echo "Node.js is not installed. Please install Node.js before running this script."
+    exit 1
+  fi
+}
+
+# Memanggil fungsi untuk memeriksa Node.js
+check_nodejs
+
 # Function untuk menampilkan teks dengan warna
 color_text() {
   local text="$1"
