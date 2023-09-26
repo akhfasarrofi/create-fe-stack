@@ -1,6 +1,6 @@
 ## Setup Script untuk Membuat Stack Front-End
 
-Ini adalah script Bash yang dapat digunakan untuk membuat proyek front-end dengan berbagai pilihan framework, manajemen state, dan pustaka komponen. Script ini memudahkan pengguna untuk membuat proyek front-end dengan cepat dan mudah. Pengguna dapat mengunduh script ini dari GitHub menggunakan wget dengan URL berikut: https://raw.githubusercontent.com/akhfasarrofi/create-fe-stack/main/setup.sh.
+Ini adalah skrip Bash untuk mengatur lingkungan pengembangan front-end dengan cepat. Skrip ini memungkinkan Anda memilih kerangka kerja front-end, sistem pengelolaan status (untuk React atau Vue), dan pustaka komponen. Skrip kemudian akan menyiapkan proyek dengan opsi yang Anda pilih. Pengguna dapat mengunduh script ini dari GitHub menggunakan wget dengan URL berikut: https://raw.githubusercontent.com/akhfasarrofi/create-fe-stack/main/setup.sh.
 
 ## Cara Menggunakan Script
 
@@ -21,10 +21,8 @@ Selamat mencoba dan semoga sukses dalam pengembangan proyek front-end Anda ðŸŽ‰ð
 
 ## Deskripsi Singkat
 
-- Pemilihan Framework: Script ini memungkinkan Anda memilih framework front-end seperti Next.js, Vite, atau Vue.js.
+- Pilihan Framework: ```Next, Remix, Gatsby, Vite, Vue dan Nuxt```
 
-- Manajemen State (Hanya untuk Next.js dan Vue.js): Jika Anda memilih Next.js atau Vue.js, Anda dapat memilih opsi manajemen state seperti Zustand, Redux, Jotai (untuk Next.js), atau Vuex, Pinia, Mobx (untuk Vue.js).
+- Pilihan State Management: ```Zustand, Redux, Jotai, Recoil, Vuex, Pinia, Mobx```
 
-- Pustaka Komponen (Hanya untuk Next.js dan Vue.js): Jika Anda memilih Next.js atau Vue.js, Anda dapat memilih pustaka komponen seperti Material-UI, Ant-Design, Chakra-UI, Next-UI (untuk Next.js), atau Vuetify, Bootstrap Vue, Element Plus, Ant Design, Chakra UI (untuk Vue.js).
-
-- Struktur Proyek: Setelah Anda memilih preferensi Anda, script akan membuat direktori proyek dengan nama yang Anda tentukan dan menginstal semua dependensi yang diperlukan.
+- Pilihan Komponent: ```Material-UI, Ant-Design, Chakra-UI, Next-UI, atau Vuetify, Bootstrap Vue, Element Plus, Ant Design, Chakra UI```
